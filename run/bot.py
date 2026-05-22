@@ -354,24 +354,63 @@ class Bot:
         if not await Bot.process_bot_interaction(event):
             return
 
-        if len(event.message.text) > 33:
+        if len(event.message.text) > 100:
             return await event.respond("Your Search Query is too long. :(")
 
         waiting_message_search = await event.respond('⏳')
-        sanitized_query = await sanitize_query(event.message.text)
+        sanitized_query = event.message.text.replace('/search', '').strip()
         if not sanitized_query:
-            await event.respond("Your input was not valid. Please try again with a valid search term.")
+            await event.respond("Please provide a search term.")
+            await waiting_message_search.delete()
             return
 
-        search_result = await SpotifyDownloader.search_spotify_based_on_user_input(sanitized_query, limit=10)
-        button_list = Buttons.get_search_result_buttons(sanitized_query, search_result)
-
         try:
-            await event.respond(Bot.search_result_message, buttons=button_list)
-        except Exception as Err:
-            await event.respond(f"Sorry There Was an Error Processing Your Request: {str(Err)}")
+            await event.respond(f"🔍 Searching for: **{sanitized_query}**...")
 
-        await waiting_message_search.delete()
+            # Use yt-dlp ytsearch with extract_flat for fast shallow results
+            from yt_dlp import YoutubeDL
+            from concurrent.futures import ThreadPoolExecutor
+
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'skip_download': True,
+                'noplaylist': True,
+                'nocheckcertificate': True,
+                'extract_flat': True,  # Fast: no per-video metadata fetching
+            }
+
+            def do_search():
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(f'ytsearch5:{sanitized_query}', download=False)
+                    return info.get('entries', []) if info else []
+
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                results = await asyncio.get_event_loop().run_in_executor(pool, do_search)
+
+            if not results:
+                await event.respond("❌ No results found. Try: 'Artist - Song Title'.")
+                await waiting_message_search.delete()
+                return
+
+            message = f"🎵 **Top Results for '{sanitized_query}':**\n\n"
+            for i, track in enumerate(results[:5], 1):
+                title = track.get('title', 'Unknown Title')
+                uploader = track.get('uploader', 'Unknown Artist')
+                duration = track.get('duration', 0)
+                mins, secs = divmod(int(duration), 60) if duration else (0, 0)
+                vid = track.get('id') or track.get('webpage_url', '').split('v=')[-1]
+                url = f"https://www.youtube.com/watch?v={vid}"
+                message += f"**{i}. {title}**\n👤 {uploader} | ⏱ {mins}:{secs:02d}\n🔗 {url}\n\n"
+
+            message += "👉 **Paste any link above to download it!**"
+            await event.respond(message, link_preview=False)
+            await waiting_message_search.delete()
+
+        except Exception as e:
+            print(f"Search error: {str(e)}")
+            await event.respond(f"❌ Search error: {str(e)}")
+            await waiting_message_search.delete()
 
     @staticmethod
     async def handle_next_prev_page(event):

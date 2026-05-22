@@ -11,7 +11,7 @@ class UserState:
 
 
 class BotState:
-    channel_usernames = ["Spotify_yt_downloader"]
+    channel_usernames = ["ZemaMusicBot"]
     user_states = {}
     lock = asyncio.Lock()
 

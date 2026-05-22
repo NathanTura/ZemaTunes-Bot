@@ -184,39 +184,67 @@ Number of Unsubscribed Users: {number_of_unsubscribed}""")
 
     @staticmethod
     async def handle_search_command(event):
-        if not await update_bot_version_user_season(event):
-            return event.respond("We have updated the bot.\n"
-                                 "please start over using /start command.")
-
-        search_query = event.message.text[8:]
-
-        if not search_query.strip():
-            await event.respond(
-                "Please provide a search term after the /search command. \nOr simply send me everything you want "
-                "to Search for.")
-            return
-
-        waiting_message_search = await event.respond('⏳')
-        sanitized_query = await sanitize_query(search_query)
-        if not sanitized_query:
-            await event.respond("Your input was not valid. Please try again with a valid search term.")
-            return
-
-        search_result = await SpotifyDownloader.search_spotify_based_on_user_input(sanitized_query)
-        if len(search_result) == 0:
-            await waiting_message_search.delete()
-            await event.respond("Sorry, I couldnt Find any music that matches your Search query.")
-            return
-
-        button_list = Buttons.get_search_result_buttons(sanitized_query, search_result)
-
         try:
-            await event.respond(BotMessageHandler.search_result_message, buttons=button_list)
-        except Exception as Err:
-            await event.respond(f"Sorry There Was an Error Processing Your Request: {str(Err)}")
+            # 1. Safely extract the text as a string
+            text = str(event.raw_text)
 
-        await asyncio.sleep(1.5)
-        await waiting_message_search.delete()
+            # 2. Check if they actually typed a song name
+            if " " not in text:
+                await event.respond("⚠️ Please provide a song name.\nExample: `/search Blinding Lights`")
+                return
+
+            # 3. Clean up the query — split returns a list, grab index [1] then strip
+            query = text.split(" ", 1)[1].strip()
+
+            if not query:
+                await event.respond("⚠️ Please provide a song name.\nExample: `/search Blinding Lights`")
+                return
+
+            await event.respond(f"🔍 Searching for: **{query}**...")
+
+            # 4. Use yt-dlp ytsearch with extract_flat for fast shallow results
+            from yt_dlp import YoutubeDL
+            import asyncio
+            from concurrent.futures import ThreadPoolExecutor
+
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'skip_download': True,
+                'noplaylist': True,
+                'nocheckcertificate': True,
+                'extract_flat': True,  # Fast: no per-video metadata fetching
+            }
+
+            def do_search():
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(f'ytsearch5:{query}', download=False)
+                    return info.get('entries', []) if info else []
+
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                results = await asyncio.get_event_loop().run_in_executor(pool, do_search)
+
+            if not results:
+                await event.respond("❌ No results found. Try: 'Artist - Song Title'.")
+                return
+
+            # 5. Format the results nicely
+            message = f"🎵 **Top Results for '{query}':**\n\n"
+            for i, track in enumerate(results[:5], 1):
+                title = track.get('title', 'Unknown Title')
+                uploader = track.get('uploader', 'Unknown Artist')
+                duration = track.get('duration', 0)
+                mins, secs = divmod(int(duration), 60) if duration else (0, 0)
+                vid = track.get('id') or track.get('webpage_url', '').split('v=')[-1]
+                url = f"https://www.youtube.com/watch?v={vid}"
+                message += f"**{i}. {title}**\n👤 {uploader} | ⏱ {mins}:{secs:02d}\n🔗 {url}\n\n"
+
+            message += "👉 **Paste any link above to download it!**"
+            await event.respond(message, link_preview=False)
+
+        except Exception as e:
+            print(f"Search error: {str(e)}")
+            await event.respond(f"❌ Search error: {str(e)}")
 
     @staticmethod
     async def handle_user_info_command(event):

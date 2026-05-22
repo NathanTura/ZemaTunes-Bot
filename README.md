@@ -1,153 +1,154 @@
-# MusicDownloader-Telegram-Bot
+# 🎵 ZemaTunes-Bot
 
-MusicDownloader-Telegram-Bot is a Telegram bot that allows users to download music/video from Spotify and YouTube. It provides a convenient way to access and download your favorite tracks/videos directly to your device.
+A Telegram bot for downloading music and videos from **YouTube** — fast, clean, and easy to use.
 
-You can test this bot at:
-```telegram.me/spotify_yt_downloader_bot```
+> ⚡ Built for personal use. Search any song or paste a YouTube link and get it straight in Telegram.
 
-## Features
+---
 
-- Download music from Spotify links
-- Search for songs on Spotify using keywords
-- Supports different audio formats and qualities
-- Option to select between SpotDL and YoutubeDL for downloading
-- Broadcast messages to all users or specific subscribers
-- Subscription management for users
-- Voice recognition for song search
-- Screenshot capture of tweets
-- Download twitter media
-- Download Instagram media
-- Download Youtube media
+## ✨ Features
 
-## Installation
+- 🎵 Download audio from YouTube links
+- 🔍 Search songs by name and download instantly
+- 🎬 Download YouTube videos
+- 🎙️ Voice recognition — hum or record audio to find a song
+- 🎤 Fetch song lyrics
+- ⚙️ Choose your preferred audio format and quality
+- 📣 Admin broadcast system
 
-Follow these steps to set up the `MusicDownloader-Telegram-Bot` project on your system.
+---
 
-### Step 1: Install FFmpeg
+## 🚀 Quick Start
 
-FFmpeg is required for audio processing. Here's how to install it on different operating systems:
+### 1. Prerequisites
 
-#### Ubuntu/Debian
-```zsh
+- Python **3.10.12**
+- FFmpeg installed and added to PATH
+
+**Install FFmpeg:**
+
+```bash
+# Ubuntu/Debian
 sudo apt install ffmpeg
-```
 
-#### macOS (using Homebrew)
-```zsh
+# macOS
 brew install ffmpeg
+
+# Windows — download from https://ffmpeg.org/download.html
+# then add the /bin folder to your system PATH
 ```
 
-#### Windows
-
-Download the FFmpeg build from [Here](https://ffmpeg.org/download.html).
-Extract the downloaded file and add the bin folder to your system's PATH.
-
-To verify the installation, run:
-```zsh
+Verify it works:
+```bash
 ffmpeg -version
 ```
 
-If you see version information, FFmpeg is installed correctly.
+---
 
+### 2. Clone This Repo
 
-### Step 2: Clone the Repository
-
-Open a terminal and clone the `MusicDownloader-Telegram-Bot` repository from GitHub:
-
-```zsh
-git clone https://github.com/AdibNikjou/MusicDownloader-Telegram-Bot.git
+```bash
+git clone https://github.com/NathanTura/ZemaTunes-Bot.git
+cd ZemaTunes-Bot
 ```
 
-### Step 3: Install Python Dependencies
+---
 
-Navigate to the cloned repository's directory and install the required Python dependencies using `pip`:
+### 3. Install Dependencies
 
-```zsh
-cd MusicDownloader-Telegram-Bot
+```bash
 pip install -r requirements.txt
 ```
 
+---
 
-### Step 4: Set Up Your Environment Variables
+### 4. Set Up Your Config
 
-Create a `config.env` file in the root directory of the project and add the following environment variables:
+Copy the example config and fill in your credentials:
 
-- `SPOTIFY_CLIENT_ID=your_spotify_client_id`
-- `SPOTIFY_CLIENT_SECRET=your_spotify_client_secret`
-- `BOT_TOKEN=your_telegram_bot_token`
-- `API_ID=your_telegram_api_id`
-- `API_HASH=your_telegram_api_hash`
-- `GENIUS_ACCESS_TOKEN=your_genius_access_token`
-
-### Step 5: Run the Bot
-
-With all dependencies installed and environment variables set, you can now run the bot:
-
-```zsh
-python3 main.py
+```bash
+cp config.env.example config.env
 ```
 
-## Usage
+Then edit `config.env`:
 
-1. Start a conversation with the bot by sending the `/start` command.
-2. Share a Spotify link or use the `/search` command followed by a song title or lyrics to find and download music.
-3. Use the `/settings` command to change the audio format and quality.
-4. Subscribe to receive updates and news from the bot.
-5. Use the `/admin` command to access admin features (available only to authorized users).
+```env
+ADMIN_USER_IDS = "your_telegram_user_id"
 
-## Commands
+API_ID = "your_telegram_api_id"
+API_HASH = "your_telegram_api_hash"
 
-- `/start`: Start the bot and get the welcome message.
-- `/search <query>`: Search for songs on Spotify.
-- `/settings`: Access settings to change audio format and quality, downloading core, and subscription.
-- `/core`: Access directly to core settings to change downloading core.
-- `/quality`: Access directly to quality settings to change audio format and quality.
-- `/subscribe`: Subscribe to receive updates.
-- `/unsubscribe`: Unsubscribe from updates.
-- `/help`: Get help on how to use the bot.
-- `/ping`: Check the bot's response time.
-- `/stats`: Get statistics about the bot's usage.
-- `/admin`: Access admin features.
+BOT_TOKEN = "your_telegram_bot_token"
 
-## Admin Commands
+SPOTIFY_CLIENT_ID = "your_spotify_client_id"
+SPOTIFY_CLIENT_SECRET = "your_spotify_client_secret"
 
-- `/broadcast`: Send a message to all subscribed users or specific subscribers.
-   - Ex: `/broadcast` -> Send a message to all subscribed users.
-   - Ex: `/broadcast (1297994832,1297994833)` -> Send a message to 1297994832 and 1297994833 only.
-   - Ex: `/broadcast_to_all` -> Send a message to all users.
-- `/stats`: Get statistics about the bot's usage.
+GENIUS_ACCESS_TOKEN = "your_genius_access_token"
+```
 
-## Dependencies
+**Where to get these:**
+| Key | Source |
+|---|---|
+| `BOT_TOKEN` | [@BotFather](https://t.me/BotFather) on Telegram |
+| `API_ID` / `API_HASH` | [my.telegram.org](https://my.telegram.org) |
+| `ADMIN_USER_IDS` | Your Telegram user ID (use [@userinfobot](https://t.me/userinfobot)) |
+| `SPOTIFY_*` | [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) |
+| `GENIUS_ACCESS_TOKEN` | [Genius API](https://genius.com/api-clients) |
 
-- Python 3.10+
-- Telethon
-- Spotipy
-- Yt-dlp
-- spotdl
-- Shazamio
-- Pillow
-- dotenv
-- aiosqlite
-- lyricsgenius
-- FastTelethonhelper
+---
 
-## Contributing
+### 5. Run the Bot
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue if you find any bugs or have suggestions for improvements.
+```bash
+python main.py
+```
 
-## License
+---
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+## 💬 Commands
 
-## Contact
+| Command | Description |
+|---|---|
+| `/start` | Welcome message |
+| `/search <song name>` | Search and download a song |
+| `/settings` | Change audio format, quality, etc. |
+| `/quality` | Quickly change audio quality |
+| `/help` | Get help |
+| `/ping` | Check bot response time |
+| `/stats` | Usage statistics |
 
-For any inquiries or feedback, please contact the creator:
-- Telegram: @AdibNikjou
-- Email: adib.n7789@gmail.com
+### Admin Only
+| Command | Description |
+|---|---|
+| `/broadcast` | Message all subscribed users |
+| `/broadcast_to_all` | Message every user |
 
-## Acknowledgments
+---
 
-- Spotify API for providing access to music metadata.
-- Telegram API for the bot framework.
-- Shazam API for voice recognition.
-- YoutubeDL for downloading music from YouTube.
+## 🛠️ Dependencies
+
+- [Telethon](https://github.com/LonamiWebs/Telethon)
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+- [Shazamio](https://github.com/dotX12/ShazamIO)
+- [lyricsgenius](https://github.com/johnwmillr/LyricsGenius)
+- [aiosqlite](https://github.com/omnilib/aiosqlite)
+- [Pillow](https://python-pillow.org/)
+- [python-dotenv](https://github.com/theskumar/python-dotenv)
+
+---
+
+## 🙏 Credits
+
+This project is a fork of [MusicDownloader-Telegram-Bot](https://github.com/AdibNikjou/MusicDownloader-Telegram-Bot) by [Adib Nikjou](https://github.com/AdibNikjou) — huge props for building the original.
+
+I adapted it to focus on YouTube-only downloads and tweaked it to my needs. Original project is licensed under the MIT License.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/NathanTura">NathanTura</a></p>

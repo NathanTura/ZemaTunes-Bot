@@ -472,7 +472,7 @@ class SpotifyDownloader:
         audio_attributes = DocumentAttributeAudio(
             duration=0,
             title=f"{spotify_link_info['track_name']} - {spotify_link_info['artist_name']}",
-            performer="@Spotify_YT_Downloader_BOT",
+            performer="@ZemaMusicBot",
             waveform=None,
             voice=False
         )

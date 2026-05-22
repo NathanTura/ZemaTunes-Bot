@@ -243,24 +243,26 @@ class YoutubeDownloader:
 
                         uploaded_file = await client.upload_file(media)
 
+                        # Use actual title from the video — YT titles already include artist name
+                        actual_title = info.get('title', 'Downloaded Audio')
+
                         # Prepare the audio attributes
                         audio_attributes = DocumentAttributeAudio(
                             duration=int(duration),
-                            title="Downloaded Audio",  # Replace with actual title
-                            performer="@Spotify_YT_Downloader_BOT",  # Replace with actual performer
-                            # Add other attributes as needed
+                            title=actual_title,
+                            performer='',
                         )
 
                         media = InputMediaUploadedDocument(
                             file=uploaded_file,
-                            thumb=None,  # Assuming you have a thumbnail or will set it later
+                            thumb=None,
                             mime_type='audio/m4a' if extension == "m4a" else 'audio/webm',
                             attributes=[audio_attributes],
                         )
 
                     # Send the downloaded file
                     await client.send_file(event.chat_id, file=media,
-                                           caption=f"Enjoy!\n@Spotify_YT_Downloader_BOT",
+                                           caption=f"Enjoy!\n@ZemaMusicBot",
                                            force_document=False,
                                            # This ensures the file is sent as a video/voice if possible
                                            supports_streaming=True  # This enables video streaming
