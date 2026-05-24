@@ -104,7 +104,7 @@ You'll know it worked if you see `(my-env)` at the start of your terminal.
 pip install -r requirements.txt
 ```
 
-This might take a few minutes. Grab some coffee! ☕
+This might take a few minutes.
 
 ---
 
@@ -203,26 +203,6 @@ YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that
    - Monitor download success rates and adapt
 
 **Without these measures, your remote bot will likely fail after a while.** This is why it's designed for local use — your local machine is trusted by YouTube, so no special tricks needed.
-
----
-
-## 💬 Commands
-
-| Command | Description |
-|---|---|
-| `/start` | Welcome message |
-| `/search <song name>` | Search and download a song |
-| `/settings` | Change audio format, quality, etc. |
-| `/quality` | Quickly change audio quality |
-| `/help` | Get help |
-| `/ping` | Check bot response time |
-| `/stats` | Usage statistics |
-
-### Admin Only
-| Command | Description |
-|---|---|
-| `/broadcast` | Message all subscribed users |
-| `/broadcast_to_all` | Message every user |
 
 ---
 
