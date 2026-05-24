@@ -206,26 +206,6 @@ YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that
 
 ---
 
-## 💬 Commands
-
-| Command | Description |
-|---|---|
-| `/start` | Welcome message |
-| `/search <song name>` | Search and download a song |
-| `/settings` | Change audio format, quality, etc. |
-| `/quality` | Quickly change audio quality |
-| `/help` | Get help |
-| `/ping` | Check bot response time |
-| `/stats` | Usage statistics |
-
-### Admin Only
-| Command | Description |
-|---|---|
-| `/broadcast` | Message all subscribed users |
-| `/broadcast_to_all` | Message every user |
-
----
-
 ## 🛠️ Dependencies
 
 - [Telethon](https://github.com/LonamiWebs/Telethon)
