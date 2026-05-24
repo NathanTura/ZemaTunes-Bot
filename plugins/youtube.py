@@ -215,7 +215,7 @@ class YoutubeDownloader:
                         client=client,
                         file_location=path,
                         reply=None,  # No need for a progress bar in this case
-                        name=path,
+                        name=info.get('title', 'audio') + '.' + extension,
                         progress_bar_function=None
                     )
 
