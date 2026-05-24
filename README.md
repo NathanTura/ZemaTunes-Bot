@@ -104,7 +104,7 @@ You'll know it worked if you see `(my-env)` at the start of your terminal.
 pip install -r requirements.txt
 ```
 
-This might take a few minutes. Grab some coffee! ☕
+This might take a few minutes.
 
 ---
 
