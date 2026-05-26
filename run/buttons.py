@@ -49,7 +49,7 @@ class Buttons:
         match mode:
             case "0":
                 return [
-                    [Button.inline("🔹 Light mode", data=b"setting/TweetCapture/mode/0")],
+                    [Button.inline(" Light mode", data=b"setting/TweetCapture/mode/0")],
                     [Button.inline("Dark mode", data=b"setting/TweetCapture/mode/1")],
                     [Button.inline("Black mode", data=b"setting/TweetCapture/mode/2")],
                     [Buttons.back_button, Buttons.back_button_to_setting]
@@ -57,7 +57,7 @@ class Buttons:
             case "1":
                 return [
                     [Button.inline("Light mode", data=b"setting/TweetCapture/mode/0")],
-                    [Button.inline("🔹 Dark mode", data=b"setting/TweetCapture/mode/1")],
+                    [Button.inline(" Dark mode", data=b"setting/TweetCapture/mode/1")],
                     [Button.inline("Black mode", data=b"setting/TweetCapture/mode/2")],
                     [Buttons.back_button, Buttons.back_button_to_setting]
                 ]
@@ -65,7 +65,7 @@ class Buttons:
                 return [
                     [Button.inline("Light mode", data=b"setting/TweetCapture/mode/0")],
                     [Button.inline("Dark mode", data=b"setting/TweetCapture/mode/1")],
-                    [Button.inline("🔹 Black mode", data=b"setting/TweetCapture/mode/2")],
+                    [Button.inline(" Black mode", data=b"setting/TweetCapture/mode/2")],
                     [Buttons.back_button, Buttons.back_button_to_setting]
                 ]
 
@@ -87,7 +87,7 @@ class Buttons:
         match core:
             case "Auto":
                 return [
-                    [Button.inline("🔸 Auto", data=b"setting/core/auto")],
+                    [Button.inline(" Auto", data=b"setting/core/auto")],
                     [Button.inline("YoutubeDL", b"setting/core/youtubedl")],
                     [Button.inline("SpotDL", b"setting/core/spotdl")],
                     [Buttons.back_button, Buttons.back_button_to_setting],
@@ -96,13 +96,13 @@ class Buttons:
                 return [
                     [Button.inline("Auto", data=b"setting/core/auto")],
                     [Button.inline("YoutubeDL", b"setting/core/youtubedl")],
-                    [Button.inline("🔸 SpotDL", b"setting/core/spotdl")],
+                    [Button.inline(" SpotDL", b"setting/core/spotdl")],
                     [Buttons.back_button, Buttons.back_button_to_setting],
                 ]
             case "YoutubeDL":
                 return [
                     [Button.inline("Auto", data=b"setting/core/auto")],
-                    [Button.inline("🔸 YoutubeDL", b"setting/core/youtubedl")],
+                    [Button.inline(" YoutubeDL", b"setting/core/youtubedl")],
                     [Button.inline("SpotDL", b"setting/core/spotdl")],
                     [Buttons.back_button, Buttons.back_button_to_setting],
                 ]
@@ -141,7 +141,7 @@ class Buttons:
     def get_search_result_buttons(sanitized_query, search_result, page=1) -> list:
 
         button_list = [
-            [Button.inline(f"🎧 {details['track_name']} - {details['artist_name']} 🎧 ({details['release_year']})",
+            [Button.inline(f" {details['track_name']} - {details['artist_name']}  ({details['release_year']})",
                            data=f"spotify/info/{details['track_id']}")]
             for details in search_result[(page-1) * 10:]
         ]
@@ -156,7 +156,7 @@ class Buttons:
     @staticmethod
     def get_playlist_search_buttons(playlist_id, search_result, page=1) -> list:
         button_list = [
-            [Button.inline(f"🎧 {details['track_name']} - {details['artist_name']} 🎧 ({details['release_year']})",
+            [Button.inline(f" {details['track_name']} - {details['artist_name']}  ({details['release_year']})",
                            data=f"spotify/info/{details['track_id']}")]
             for details in search_result[(page-1) * 10:]
         ]

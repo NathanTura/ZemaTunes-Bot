@@ -258,20 +258,20 @@ class SpotifyDownloader:
 
         # Construct the playlist information text
         playlist_info = (
-            f"🎧 **Playlist: {playlist_name}** 🎶\n\n"
+            f" **Playlist: {playlist_name}** \n\n"
             f"---\n\n"
             f"**Details:**\n\n"
 
-            f"  - 👤 Owner: {playlist_owner}\n"
-            f"  - 👥 Followers: {followers}\n"
+            f"  -  Owner: {playlist_owner}\n"
+            f"  -  Followers: {followers}\n"
 
-            f"  - 🎵 Total Tracks: {total_tracks}\n"
-            f"  - 🤝 Collaborative: {collaborative}\n"
-            f"  - 🌐 Public: {public}\n"
+            f"  -  Total Tracks: {total_tracks}\n"
+            f"  -  Collaborative: {collaborative}\n"
+            f"  -  Public: {public}\n"
 
-            f"  - 🎧 Playlist URL: [Listen On Spotify]({playlist_url})\n"
+            f"  -  Playlist URL: [Listen On Spotify]({playlist_url})\n"
             f"---\n\n"
-            f"**Enjoy the music!** 🎶"
+            f"**Enjoy the music!** "
         )
 
         # Buttons for interactivity
@@ -375,13 +375,13 @@ class SpotifyDownloader:
         ]
 
         caption = (
-            f"**🎧 Title:** [{link_info['track_name']}]({link_info['track_url']})\n"
-            f"**🎤 Artist:** [{link_info['artist_name']}]({link_info['artist_url']})\n"
-            f"**💽 Album:** [{link_info['album_name']}]({link_info['album_url']})\n"
-            f"**🗓 Release Year:** {link_info['release_year']}\n"
-            f"**❗️ Is Local:** {is_local}\n"
-            f"**🌐 ISRC:** {link_info['isrc']}\n"
-            f"**🔄 Downloaded:** {await db.get_song_downloads(link_info['track_name'])} times\n\n"
+            f"** Title:** [{link_info['track_name']}]({link_info['track_url']})\n"
+            f"** Artist:** [{link_info['artist_name']}]({link_info['artist_url']})\n"
+            f"** Album:** [{link_info['album_name']}]({link_info['album_url']})\n"
+            f"** Release Year:** {link_info['release_year']}\n"
+            f"**️ Is Local:** {is_local}\n"
+            f"** ISRC:** {link_info['isrc']}\n"
+            f"** Downloaded:** {await db.get_song_downloads(link_info['track_name'])} times\n\n"
             f"**Image URL:** [Click here]({link_info['image_url']})\n"
             f"**Track id:** {link_info['track_id']}\n"
         )
@@ -490,9 +490,9 @@ class SpotifyDownloader:
             event.chat_id,
             media,
             caption=(
-                    f"🎵 **{spotify_link_info['track_name']}** by **{spotify_link_info['artist_name']}**\n\n"
+                    f" **{spotify_link_info['track_name']}** by **{spotify_link_info['artist_name']}**\n\n"
                     f"▶️ [Listen on Spotify]({spotify_link_info['track_url']})\n"
-                    + (f"🎥 [Watch on YouTube]({video_url})\n" if video_url else "")
+                    + (f" [Watch on YouTube]({video_url})\n" if video_url else "")
             ),
             supports_streaming=True,
             force_document=False,
@@ -877,20 +877,20 @@ class SpotifyDownloader:
             })
 
         # Create a professional artist info message with more details and formatting
-        message = "🎤 <b>Artists Information</b> :\n\n"
+        message = " <b>Artists Information</b> :\n\n"
         for artist in artist_details:
-            message += f"🌟 <b>Artist Name:</b> {artist['name']}\n"
-            message += f"👥 <b>Followers:</b> {artist['followers']}\n"
-            message += f"🎵 <b>Genres:</b> {', '.join(artist['genres'])}\n"
-            message += f"📈 <b>Popularity:</b> {artist['popularity']}\n"
+            message += f" <b>Artist Name:</b> {artist['name']}\n"
+            message += f" <b>Followers:</b> {artist['followers']}\n"
+            message += f" <b>Genres:</b> {', '.join(artist['genres'])}\n"
+            message += f" <b>Popularity:</b> {artist['popularity']}\n"
             if artist['image_url']:
-                message += f"\n🖼️ <b>Image:</b> <a href='{artist['image_url']}'>Image Url</a>\n"
-            message += f"🔗 <b>Spotify URL:</b> <a href='{artist['external_url']}'>Spotify Link</a>\n\n"
+                message += f"\n️ <b>Image:</b> <a href='{artist['image_url']}'>Image Url</a>\n"
+            message += f" <b>Spotify URL:</b> <a href='{artist['external_url']}'>Spotify Link</a>\n\n"
             message += "───────────\n\n"
 
         # Create buttons with URLs
         artist_buttons = [
-            [Button.url(f"🎧 {artist['name']}", artist['external_url'])]
+            [Button.url(f" {artist['name']}", artist['external_url'])]
             for artist in artist_details
         ]
         artist_buttons.append([Button.inline("Remove", data='cancel')])

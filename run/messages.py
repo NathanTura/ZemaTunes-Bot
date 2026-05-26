@@ -6,54 +6,54 @@ from telethon.errors.rpcerrorlist import MessageNotModifiedError
 
 class BotMessageHandler:
     start_message = """
-Welcome to your **Music Downloader!** 🎧
+Welcome to your **Music Downloader!** 
 
-Send me the name of a song or artist, and I'll find and send you the downloadable track. 🎶
+Send me the name of a song or artist, and I'll find and send you the downloadable track. 
 
 To see what I can do, type: /help
-Or simply click the Instructions button below. 👇
+Or simply click the Instructions button below. 
 """
 
     instruction_message = """
-🎧 Music Downloader 🎧
+ Music Downloader 
 
-1. Share Spotify/YouTube song link 🔗
-2. Wait for download confirmation 📣
-3. Receive song file 💾
+1. Share Spotify/YouTube song link 
+2. Wait for download confirmation 
+3. Receive song file 
 4. Or send voice message with song sample 
-   for best match and details 🎤🔍📩
-5. Ask for lyrics, artist info, etc. 📜👨‍🎤
+   for best match and details 
+5. Ask for lyrics, artist info, etc. ‍
 
-💡 Tip: Search by title, lyrics, or other details!
+ Tip: Search by title, lyrics, or other details!
 
-📺 YouTube Downloader 📺
+ YouTube Downloader 
 
-1. Send YouTube video link 🔗
-2. Choose video quality (if prompted) 🎥
+1. Send YouTube video link 
+2. Choose video quality (if prompted) 
 3. Wait for download ⏳
-4. Receive video file 📤
+4. Receive video file 
 
-📸 Instagram Downloader 📸
+ Instagram Downloader 
 
-1. Send Instagram post/Reel/IGTV link 🔗
+1. Send Instagram post/Reel/IGTV link 
 2. Wait for download ⏳
-3. Receive file 📤
+3. Receive file 
 
-🐦 TweetCapture 🐦
+ TweetCapture 
 
-1. Provide tweet link 🔗
-2. Wait for screenshot 📸
-3. Receive screenshot 🖼️
+1. Provide tweet link 
+2. Wait for screenshot 
+3. Receive screenshot ️
 4. For media content, use "Download Media" 
-   button after getting screenshot 📥
+   button after getting screenshot 
 
 Questions? Ask @adibnikjou
         """
 
-    search_result_message = """🎵 The following are the top search results that correspond to your query:
+    search_result_message = """ The following are the top search results that correspond to your query:
 """
 
-    core_selection_message = """🎵 Choose Your Preferred Download Core 🎵
+    core_selection_message = """ Choose Your Preferred Download Core 
 
 """
     JOIN_CHANNEL_MESSAGE = """It seems you are not a member of our channel yet.

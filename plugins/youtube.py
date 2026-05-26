@@ -158,7 +158,7 @@ class YoutubeDownloader:
 
             if float(filesize) > YoutubeDownloader.MAXIMUM_DOWNLOAD_SIZE_MB:
                 return await event.answer(
-                    f"⚠️ The file size is more than {YoutubeDownloader.MAXIMUM_DOWNLOAD_SIZE_MB}MB."
+                    f"️ The file size is more than {YoutubeDownloader.MAXIMUM_DOWNLOAD_SIZE_MB}MB."
                     , alert=True)
 
             await db.set_file_processing_flag(user_id, is_processing=True)

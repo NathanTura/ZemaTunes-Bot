@@ -102,7 +102,7 @@ class Bot:
             b"instructions": lambda e: asyncio.create_task(
                 BotMessageHandler.edit_message(e, Bot.instruction_message, buttons=Bot.back_button)),
             b"back": lambda e: asyncio.create_task(
-                BotMessageHandler.edit_message(e, f"Hey {e.sender.first_name}!👋\n {Bot.start_message}",
+                BotMessageHandler.edit_message(e, f"Hey {e.sender.first_name}!\n {Bot.start_message}",
                                                buttons=Bot.main_menu_buttons)),
             b"setting": lambda e: asyncio.create_task(
                 BotMessageHandler.edit_message(e, "Settings :", buttons=Bot.setting_button)),
@@ -365,7 +365,7 @@ class Bot:
             return
 
         try:
-            await event.respond(f"🔍 Searching for: **{sanitized_query}**...")
+            await event.respond(f" Searching for: **{sanitized_query}**...")
 
             # Use yt-dlp ytsearch with extract_flat for fast shallow results
             from yt_dlp import YoutubeDL
@@ -389,11 +389,11 @@ class Bot:
                 results = await asyncio.get_event_loop().run_in_executor(pool, do_search)
 
             if not results:
-                await event.respond("❌ No results found. Try: 'Artist - Song Title'.")
+                await event.respond(" No results found. Try: 'Artist - Song Title'.")
                 await waiting_message_search.delete()
                 return
 
-            message = f"🎵 **Top Results for '{sanitized_query}':**\n\n"
+            message = f" **Top Results for '{sanitized_query}':**\n\n"
             for i, track in enumerate(results[:5], 1):
                 title = track.get('title', 'Unknown Title')
                 uploader = track.get('uploader', 'Unknown Artist')
@@ -401,15 +401,15 @@ class Bot:
                 mins, secs = divmod(int(duration), 60) if duration else (0, 0)
                 vid = track.get('id') or track.get('webpage_url', '').split('v=')[-1]
                 url = f"https://www.youtube.com/watch?v={vid}"
-                message += f"**{i}. {title}**\n👤 {uploader} | ⏱ {mins}:{secs:02d}\n🔗 {url}\n\n"
+                message += f"**{i}. {title}**\n {uploader} | ⏱ {mins}:{secs:02d}\n {url}\n\n"
 
-            message += "👉 **Paste any link above to download it!**"
+            message += " **Paste any link above to download it!**"
             await event.respond(message, link_preview=False)
             await waiting_message_search.delete()
 
         except Exception as e:
             print(f"Search error: {str(e)}")
-            await event.respond(f"❌ Search error: {str(e)}")
+            await event.respond(f" Search error: {str(e)}")
             await waiting_message_search.delete()
 
     @staticmethod
@@ -421,7 +421,7 @@ class Bot:
         search_query = query_data.split("/")[2]
 
         if current_page == "0" or (current_page == "6" and is_playlist):
-            return await event.answer("⚠️ Not available.")
+            return await event.answer("️ Not available.")
 
         if is_playlist:
             search_result = await SpotifyDownloader.get_playlist_tracks(search_query,
@@ -435,7 +435,7 @@ class Bot:
         try:
             await event.edit(buttons=button_list)
         except:
-            await event.answer("⚠️ Not available.")
+            await event.answer("️ Not available.")
 
     @staticmethod
     async def process_x_or_twitter_link(event):

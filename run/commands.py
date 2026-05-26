@@ -21,7 +21,7 @@ class BotCommandHandler:
         user_already_in_db = await db.check_username_in_database(user_id)
         if not user_already_in_db:
             await db.create_user_settings(user_id)
-        await respond_based_on_channel_membership(event, f"""Hey {sender_name}!👋 \n{BotMessageHandler.start_message}""",
+        await respond_based_on_channel_membership(event, f"""Hey {sender_name}! \n{BotMessageHandler.start_message}""",
                                                   buttons=Buttons.main_menu_buttons)
 
     @staticmethod
@@ -190,17 +190,17 @@ Number of Unsubscribed Users: {number_of_unsubscribed}""")
 
             # 2. Check if they actually typed a song name
             if " " not in text:
-                await event.respond("⚠️ Please provide a song name.\nExample: `/search Blinding Lights`")
+                await event.respond("️ Please provide a song name.\nExample: `/search Blinding Lights`")
                 return
 
             # 3. Clean up the query — split returns a list, grab index [1] then strip
             query = text.split(" ", 1)[1].strip()
 
             if not query:
-                await event.respond("⚠️ Please provide a song name.\nExample: `/search Blinding Lights`")
+                await event.respond("️ Please provide a song name.\nExample: `/search Blinding Lights`")
                 return
 
-            await event.respond(f"🔍 Searching for: **{query}**...")
+            await event.respond(f" Searching for: **{query}**...")
 
             # 4. Use yt-dlp ytsearch with extract_flat for fast shallow results
             from yt_dlp import YoutubeDL
@@ -225,11 +225,11 @@ Number of Unsubscribed Users: {number_of_unsubscribed}""")
                 results = await asyncio.get_event_loop().run_in_executor(pool, do_search)
 
             if not results:
-                await event.respond("❌ No results found. Try: 'Artist - Song Title'.")
+                await event.respond(" No results found. Try: 'Artist - Song Title'.")
                 return
 
             # 5. Format the results nicely
-            message = f"🎵 **Top Results for '{query}':**\n\n"
+            message = f" **Top Results for '{query}':**\n\n"
             for i, track in enumerate(results[:5], 1):
                 title = track.get('title', 'Unknown Title')
                 uploader = track.get('uploader', 'Unknown Artist')
@@ -237,14 +237,14 @@ Number of Unsubscribed Users: {number_of_unsubscribed}""")
                 mins, secs = divmod(int(duration), 60) if duration else (0, 0)
                 vid = track.get('id') or track.get('webpage_url', '').split('v=')[-1]
                 url = f"https://www.youtube.com/watch?v={vid}"
-                message += f"**{i}. {title}**\n👤 {uploader} | ⏱ {mins}:{secs:02d}\n🔗 {url}\n\n"
+                message += f"**{i}. {title}**\n {uploader} | ⏱ {mins}:{secs:02d}\n {url}\n\n"
 
-            message += "👉 **Paste any link above to download it!**"
+            message += " **Paste any link above to download it!**"
             await event.respond(message, link_preview=False)
 
         except Exception as e:
             print(f"Search error: {str(e)}")
-            await event.respond(f"❌ Search error: {str(e)}")
+            await event.respond(f" Search error: {str(e)}")
 
     @staticmethod
     async def handle_user_info_command(event):

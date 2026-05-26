@@ -55,7 +55,7 @@ async def respond_based_on_channel_membership(event, message_if_in_channels: str
         join_channel_buttons = [[join_channel_button(channel)] for channel in channels_user_is_not_in]
         join_channel_buttons.append(Buttons.continue_button)
         await BotMessageHandler.send_message(event,
-                                             f"""Hey {sender_name}!👋 \n{BotMessageHandler.JOIN_CHANNEL_MESSAGE}""",
+                                             f"""Hey {sender_name}! \n{BotMessageHandler.JOIN_CHANNEL_MESSAGE}""",
                                              buttons=join_channel_buttons)
     elif message_if_in_channels is not None or (user_id in BotState.ADMIN_USER_IDS):
         await BotMessageHandler.send_message(event, f"""{message_if_in_channels}""",
@@ -70,13 +70,13 @@ async def handle_continue_in_membership_message(event):
         join_channel_buttons = [[join_channel_button(channel)] for channel in channels_user_is_not_in]
         join_channel_buttons.append(Buttons.continue_button)
         await BotMessageHandler.edit_message(event,
-                                             f"""Hey {sender_name}!👋 \n{BotMessageHandler.JOIN_CHANNEL_MESSAGE}""",
+                                             f"""Hey {sender_name}! \n{BotMessageHandler.JOIN_CHANNEL_MESSAGE}""",
                                              buttons=join_channel_buttons)
-        await event.answer("⚠️ You need to join our channels to continue.")
+        await event.answer("️ You need to join our channels to continue.")
     else:
         user_already_in_db = await db.check_username_in_database(user_id)
         if not user_already_in_db:
             await db.create_user_settings(user_id)
         await event.delete()
-        await respond_based_on_channel_membership(event, f"""Hey {sender_name}!👋 \n{BotMessageHandler.start_message}""",
+        await respond_based_on_channel_membership(event, f"""Hey {sender_name}! \n{BotMessageHandler.start_message}""",
                                                   buttons=Buttons.main_menu_buttons)
