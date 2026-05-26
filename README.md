@@ -237,7 +237,7 @@ Free hosting plans (like Render's free web service) sleep after 15 minutes of in
 
 ---
 
-## Dependencies
+## 🛠️ Dependencies
 
 - [Telethon](https://github.com/LonamiWebs/Telethon)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
