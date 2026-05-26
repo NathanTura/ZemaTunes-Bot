@@ -191,55 +191,54 @@ Cloud hosting IPs are usually blocked or rate-limited by YouTube. To bypass this
 
 You need to export YouTube cookies from your browser while logged into YouTube. These cookies can be in JSON format (common output of Chrome extensions like EditThisCookie) or standard Netscape format.
 
-1. Install a browser extension like EditThisCookie or Get cookies.txt in your web browser.
-2. Go to youtube.com and make sure you are logged into your account.
-3. Export the cookies using the extension to your clipboard.
-4. Save the cookies in your project directory:
-   - If using JSON format, save the content as cookies.json.
-   - If using Netscape format, save the content as cookies.txt.
-5. If you want to convert the cookies manually, you can run the standalone python script in your terminal:
+1. **Install a browser extension** like *EditThisCookie* or *Get cookies.txt* in your web browser.
+2. Go to `youtube.com` and make sure you are logged into your account.
+3. **Export the cookies** using the extension to your clipboard.
+4. **Save the cookies** in your project directory:
+   - If using JSON format, save the content as `cookies.json`.
+   - If using Netscape format, save the content as `cookies.txt`.
+5. *(Optional)* If you want to convert the cookies manually, you can run the standalone python script in your terminal:
+   ```bash
    python convert_cookies.py
-   This will convert your cookies.json into the cookies.txt file. Note that the bot also performs this conversion automatically on startup if a cookies.json file is present.
+   ```
+   > **Note:** The bot automatically performs this conversion on startup if a `cookies.json` file is present.
 
 #### Step 2: Choose a Free Hosting Platform
 
 ##### 1. Render (Web Service - Free Tier)
 Render allows you to build and run Docker containers for free.
-1. Create a free account on render.com.
-2. Connect your GitHub repository.
-3. Choose New > Web Service.
-4. Set the Runtime option to Docker. Render will automatically detect the Dockerfile at the root of the project.
-5. In Advanced Settings, add the following environment variables:
-   - BOT_TOKEN = your_telegram_bot_token
-   - API_ID = your_telegram_api_id
-   - API_HASH = your_telegram_api_hash
-   - ADMIN_USER_IDS = your_telegram_user_id (separate multiples with a comma)
-   - SPOTIFY_CLIENT_ID = your_spotify_client_id (optional)
-   - SPOTIFY_CLIENT_SECRET = your_spotify_client_secret (optional)
-   - GENIUS_ACCESS_TOKEN = your_genius_access_token (optional)
-   - PING_URL = your deployed Render service URL (e.g., https://your-app.onrender.com)
-6. Click Deploy Web Service.
+- **Account:** Create a free account on [render.com](https://render.com).
+- **Setup:** Connect your GitHub repository and choose **New > Web Service**.
+- **Runtime:** Set the Runtime option to **Docker**. Render will automatically detect the Dockerfile.
+- **Environment Variables (Advanced Settings):**
+  - `BOT_TOKEN` = your_telegram_bot_token
+  - `API_ID` = your_telegram_api_id
+  - `API_HASH` = your_telegram_api_hash
+  - `ADMIN_USER_IDS` = your_telegram_user_id (separate multiples with a comma)
+  - `PING_URL` = your deployed Render service URL (e.g., `https://your-app.onrender.com`)
+  - *(Optional)* `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` / `GENIUS_ACCESS_TOKEN`
+- **Deploy:** Click **Deploy Web Service**.
 
 ##### 2. Hugging Face Spaces (Docker - Free 24/7)
-Hugging Face Spaces are completely free and run continuously.
-1. Create a free account on huggingface.co.
-2. Create a New Space. Select Docker as the SDK, and choose a free hardware tier.
-3. Git clone the Space repository or upload files directly.
-4. Add your configuration values to the Space's Repository Secrets in the Settings tab using the same environment variables listed under Render.
-5. Commit and push the code, including your cookies.json or cookies.txt file.
+Hugging Face Spaces are completely free and run continuously without sleeping.
+- **Account:** Create a free account on [huggingface.co](https://huggingface.co).
+- **Setup:** Create a **New Space**. Select **Docker** as the SDK, and choose a free hardware tier.
+- **Code:** Git clone the Space repository or upload files directly.
+- **Secrets:** Add your configuration values (same as Render above) to the Space's **Repository Secrets** in the Settings tab.
+- **Deploy:** Commit and push the code, making sure to include your `cookies.json` or `cookies.txt` file.
 
 ##### 3. Koyeb (Free Tier)
 Koyeb provides free micro-containers.
-1. Create an account on koyeb.com.
-2. Deploy a new service by linking your GitHub repository.
-3. Set the build and run options to use the root Dockerfile.
-4. Configure the environment variables using the same variables listed under Render.
-5. Set PING_URL to your Koyeb application domain to enable the keep-alive.
+- **Account:** Create an account on [koyeb.com](https://koyeb.com).
+- **Setup:** Deploy a new service by linking your GitHub repository.
+- **Runtime:** Set the build and run options to use the root `Dockerfile`.
+- **Environment Variables:** Configure using the same variables listed under Render.
+- **Keep-Alive:** Set `PING_URL` to your Koyeb application domain to enable the keep-alive.
 
 #### Step 3: Keep the Bot Awake (Prevent Sleeping)
 Free hosting plans (like Render's free web service) sleep after 15 minutes of inactivity. To prevent this:
-- Built-in Keep Alive: Provide the PING_URL environment variable containing your public app URL. The bot will automatically ping itself every 10 minutes to stay awake.
-- External Keep Alive: Alternatively, create a free account on UptimeRobot or Cron-Job.org and set up an HTTP monitor to ping your web URL every 5 to 10 minutes.
+- **Built-in Keep Alive:** Provide the `PING_URL` environment variable containing your public app URL. The bot will automatically ping itself every 10 minutes to stay awake.
+- **External Keep Alive:** Alternatively, create a free account on **UptimeRobot** or **Cron-Job.org** and set up an HTTP monitor to ping your web URL every 5 to 10 minutes.
 
 ---
 
