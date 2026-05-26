@@ -1,4 +1,4 @@
-# ZemaTunes-Bot
+# 🎵 ZemaTunes-Bot
 
 A personal Telegram bot for downloading music and videos from **YouTube** — designed to run locally on your machine.
 
@@ -6,7 +6,7 @@ A personal Telegram bot for downloading music and videos from **YouTube** — de
 
 ---
 
-## What You Need to Know
+##  What You Need to Know
 
 ### This is a **Local Bot**
 This bot runs on **your machine** (laptop, desktop, or home server). It's designed for personal/private use — not for hosting on a public server. You keep it running, you get your music.
@@ -21,15 +21,15 @@ See the **Deployment Notes** section below for more details.
 
 ---
 
-## Features
+## ✨ Features
 
-- **Download Audio** — Extract audio from YouTube links, save as MP3
-- **Song Search** — Search by song name and download instantly
-- **Video Downloads** — Get the full video if you need it
-- **Voice Recognition** — Hum or record audio to identify songs (Shazam integration)
-- **Lyrics** — Fetch song lyrics on demand
-- **Format & Quality** — Choose audio quality and format to your liking
-- **Admin Broadcast** — Send messages to all users (admin only)
+-  **Download Audio** — Extract audio from YouTube links, save as MP3
+-  **Song Search** — Search by song name and download instantly
+-  **Video Downloads** — Get the full video if you need it
+-  **Voice Recognition** — Hum or record audio to identify songs (Shazam integration)
+-  **Lyrics** — Fetch song lyrics on demand
+-  **Format & Quality** — Choose audio quality and format to your liking
+-  **Admin Broadcast** — Send messages to all users (admin only)
 
 ---
 
@@ -154,7 +154,7 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## Available Commands
+## 💬 Available Commands
 
 | Command | What It Does |
 |---|---|
@@ -174,35 +174,66 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## Deployment Notes
+## 🌐 Deployment & Free Hosting Guide
 
-### Running Locally?
-You're all set! Just keep the terminal open and the bot keeps running.
+You can run this bot **locally** on your machine or deploy it **online for free** using cloud services like **Render**, **Koyeb**, or **Hugging Face Spaces**.
 
-### Want to Deploy to a Server?
-YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that. If you deploy it to a remote server:
+### Option A: Running Locally 💻
+You're all set! Just keep the terminal open and the bot keeps running. It doesn't require any special setup since YouTube trusts your home network IP.
 
-1. **Get YouTube Cookies**
-   - Log into YouTube in a browser
-   - Use a cookie extractor extension
-   - Save your cookies to a file
+---
 
-2. **Update the Bot**
-   - Pass the cookies via the `YOUTUBE_COOKIES` environment variable
-   - Or modify the YouTube downloader module to load cookies from a file
+### Option B: Deploying Online (Free Hosting) ☁️
 
-3. **Keep Cookies Fresh**
-   - YouTube cookies expire after a while
-   - You'll need to refresh them periodically
-   - Consider automating this process
+Cloud hosting IPs are usually blocked or rate-limited by YouTube. To bypass this, you **must** supply your YouTube cookies to the bot.
 
-4. **Optional Extras for Reliability**
-   - Use proxies or VPNs to distribute requests
-   - Implement User-Agent rotation
-   - Add retry logic with exponential backoff
-   - Monitor download success rates and adapt
+#### Step 1: Export YouTube Cookies 🍪
+1. Install a browser extension like **EditThisCookie** or **Get cookies.txt** in your browser.
+2. Go to [YouTube](https://www.youtube.com) and log into your account.
+3. Export the cookies using the extension (JSON format or Netscape format are both supported!).
+4. Save the cookies:
+   - Save JSON format as `cookies.json` OR Netscape format as `cookies.txt` in the root of your project directory.
+   - *Note:* The bot automatically converts JSON cookies into Netscape format on startup!
 
-**Without these measures, your remote bot will likely fail after a while.** This is why it's designed for local use — your local machine is trusted by YouTube, so no special tricks needed.
+#### Step 2: Choose a Free Hosting Platform 🚀
+
+##### 1. Render (Web Service - Free)
+Render allows you to build and run Docker containers for free.
+1. Create a free account on [Render](https://render.com).
+2. Connect your GitHub repository.
+3. Choose **New > Web Service**.
+4. Set **Runtime** to `Docker` (Render will automatically detect the `Dockerfile` at the root).
+5. In **Advanced Settings**, add the following environment variables:
+   - `BOT_TOKEN` = `your_telegram_bot_token`
+   - `API_ID` = `your_telegram_api_id`
+   - `API_HASH` = `your_telegram_api_hash`
+   - `ADMIN_USER_IDS` = `your_telegram_user_id`
+   - `SPOTIFY_CLIENT_ID` = `your_spotify_client_id` (optional)
+   - `SPOTIFY_CLIENT_SECRET` = `your_spotify_client_secret` (optional)
+   - `GENIUS_ACCESS_TOKEN` = `your_genius_access_token` (optional)
+   - `PING_URL` = `https://<your-render-subdomain>.onrender.com` (this triggers the self-pinging keep-alive task!)
+6. Click **Deploy Web Service**.
+
+##### 2. Hugging Face Spaces (Docker/Python - Free 24/7)
+Hugging Face Spaces are completely free and run 24/7.
+1. Create a free account on [Hugging Face](https://huggingface.co).
+2. Create a **New Space**. Select `Docker` as the SDK, and choose a free hardware tier.
+3. Git clone the Space repository or upload files directly.
+4. Add your configuration values to the Space's **Repository Secrets** in the Settings tab (using the same environment variables listed above under Render).
+5. Commit and push the code (including your `cookies.json` or `cookies.txt`).
+
+##### 3. Koyeb (Free Tier)
+Koyeb provides free micro-containers.
+1. Create an account on [Koyeb](https://www.koyeb.com).
+2. Deploy a new service by linking your GitHub repository.
+3. Set the build/run options to use the root `Dockerfile`.
+4. Configure the environment variables (using the same variables listed above).
+5. Set `PING_URL` to your Koyeb application domain to enable the keep-alive.
+
+#### Step 3: Keep the Bot Awake (Prevent Sleeping) ⏰
+Free hosting plans (like Render's free web service) sleep after 15 minutes of inactivity. To prevent this:
+- **Built-in Keep Alive:** Provide the `PING_URL` (or `WEB_URL`) environment variable containing your public app URL. The bot will automatically ping itself every 10 minutes to stay awake.
+- **External Keep Alive:** Alternatively, create a free account on [UptimeRobot](https://uptimerobot.com) or [Cron-Job.org](https://cron-job.org) and set up a HTTP monitor to ping your web URL every 5–10 minutes.
 
 ---
 
@@ -218,7 +249,7 @@ YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that
 
 ---
 
-## Credits
+## 🙏 Credits
 
 This project is a fork of [MusicDownloader-Telegram-Bot](https://github.com/AdibNikjou/MusicDownloader-Telegram-Bot) by [Adib Nikjou](https://github.com/AdibNikjou) — huge props for building the original.
 
@@ -226,10 +257,10 @@ I adapted it to focus on YouTube-only downloads and tweaked it to my needs. Orig
 
 ---
 
-## License
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">Made with love by <a href="https://github.com/NathanTura">NathanTura</a></p>
+<p align="center">Made with ❤️ by <a href="https://github.com/NathanTura">NathanTura</a></p>

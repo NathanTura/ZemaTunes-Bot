@@ -503,7 +503,12 @@ class SpotifyDownloader:
     async def download_spotdl(event, music_quality, spotify_link_info, quite: bool = False, initial_message=None,
                               audio_option: str = "piped") -> bool | tuple[bool, Any | None] | tuple[bool, bool]:
         user_id = event.sender_id
-        command = f'python3 -m spotdl --format {music_quality["format"]} --audio {audio_option} --output "{SpotifyDownloader.download_directory}" --threads {15} "{spotify_link_info["track_url"]}"'
+        import sys
+        from utils import get_valid_cookie_file
+        cookie_path = get_valid_cookie_file()
+        cookie_opt = f'--cookie-file "{cookie_path}"' if cookie_path else ''
+        python_exe = sys.executable or 'python3'
+        command = f'"{python_exe}" -m spotdl --format {music_quality["format"]} --audio {audio_option} {cookie_opt} --output "{SpotifyDownloader.download_directory}" --threads {15} "{spotify_link_info["track_url"]}"'
         try:
             # Start the subprocess
             process = await asyncio.create_subprocess_shell(

@@ -1,5 +1,8 @@
 # === Secrets (NEVER commit these) ===
 config.env
+cookies.json
+cookies.txt
+cookies_netscape.txt
 
 # === Session files ===
 *.session
