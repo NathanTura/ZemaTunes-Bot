@@ -1,4 +1,4 @@
-# 🎵 ZemaTunes-Bot
+# ZemaTunes-Bot
 
 A personal Telegram bot for downloading music and videos from **YouTube** — designed to run locally on your machine.
 
@@ -21,7 +21,7 @@ See the **Deployment Notes** section below for more details.
 
 ---
 
-## ✨ Features
+## Features
 
 -  **Download Audio** — Extract audio from YouTube links, save as MP3
 -  **Song Search** — Search by song name and download instantly
@@ -154,7 +154,7 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## 💬 Available Commands
+## Available Commands
 
 | Command | What It Does |
 |---|---|
@@ -174,70 +174,76 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## 🌐 Deployment & Free Hosting Guide
+## Deployment and Free Hosting Guide
 
-You can run this bot **locally** on your machine or deploy it **online for free** using cloud services like **Render**, **Koyeb**, or **Hugging Face Spaces**.
+You can run this bot locally on your machine or deploy it online for free using cloud services like Render, Koyeb, or Hugging Face Spaces.
 
-### Option A: Running Locally 💻
-You're all set! Just keep the terminal open and the bot keeps running. It doesn't require any special setup since YouTube trusts your home network IP.
+### Option A: Running Locally
+You are all set. Just keep the terminal open and the bot keeps running. It does not require any special setup since YouTube trusts your home network IP.
 
 ---
 
-### Option B: Deploying Online (Free Hosting) ☁️
+### Option B: Deploying Online (Free Hosting)
 
-Cloud hosting IPs are usually blocked or rate-limited by YouTube. To bypass this, you **must** supply your YouTube cookies to the bot.
+Cloud hosting IPs are usually blocked or rate-limited by YouTube. To bypass this, you must supply your YouTube cookies to the bot.
 
-#### Step 1: Export YouTube Cookies 🍪
-1. Install a browser extension like **EditThisCookie** or **Get cookies.txt** in your browser.
-2. Go to [YouTube](https://www.youtube.com) and log into your account.
-3. Export the cookies using the extension (JSON format or Netscape format are both supported!).
-4. Save the cookies:
-   - Save JSON format as `cookies.json` OR Netscape format as `cookies.txt` in the root of your project directory.
-   - *Note:* The bot automatically converts JSON cookies into Netscape format on startup!
+#### Step 1: Exporting and Converting YouTube Cookies
 
-#### Step 2: Choose a Free Hosting Platform 🚀
+You need to export YouTube cookies from your browser while logged into YouTube. These cookies can be in JSON format (common output of Chrome extensions like EditThisCookie) or standard Netscape format.
 
-##### 1. Render (Web Service - Free)
+1. Install a browser extension like EditThisCookie or Get cookies.txt in your web browser.
+2. Go to youtube.com and make sure you are logged into your account.
+3. Export the cookies using the extension to your clipboard.
+4. Save the cookies in your project directory:
+   - If using JSON format, save the content as cookies.json.
+   - If using Netscape format, save the content as cookies.txt.
+5. If you want to convert the cookies manually, you can run the standalone python script in your terminal:
+   python convert_cookies.py
+   This will convert your cookies.json into the cookies.txt file. Note that the bot also performs this conversion automatically on startup if a cookies.json file is present.
+
+#### Step 2: Choose a Free Hosting Platform
+
+##### 1. Render (Web Service - Free Tier)
 Render allows you to build and run Docker containers for free.
-1. Create a free account on [Render](https://render.com).
+1. Create a free account on render.com.
 2. Connect your GitHub repository.
-3. Choose **New > Web Service**.
-4. Set **Runtime** to `Docker` (Render will automatically detect the `Dockerfile` at the root).
-5. In **Advanced Settings**, add the following environment variables:
-   - `BOT_TOKEN` = `your_telegram_bot_token`
-   - `API_ID` = `your_telegram_api_id`
-   - `API_HASH` = `your_telegram_api_hash`
-   - `ADMIN_USER_IDS` = `your_telegram_user_id`
-   - `SPOTIFY_CLIENT_ID` = `your_spotify_client_id` (optional)
-   - `SPOTIFY_CLIENT_SECRET` = `your_spotify_client_secret` (optional)
-   - `GENIUS_ACCESS_TOKEN` = `your_genius_access_token` (optional)
-   - `PING_URL` = `https://<your-render-subdomain>.onrender.com` (this triggers the self-pinging keep-alive task!)
-6. Click **Deploy Web Service**.
+3. Choose New > Web Service.
+4. Set the Runtime option to Docker. Render will automatically detect the Dockerfile at the root of the project.
+5. In Advanced Settings, add the following environment variables:
+   - BOT_TOKEN = your_telegram_bot_token
+   - API_ID = your_telegram_api_id
+   - API_HASH = your_telegram_api_hash
+   - ADMIN_USER_IDS = your_telegram_user_id (separate multiples with a comma)
+   - SPOTIFY_CLIENT_ID = your_spotify_client_id (optional)
+   - SPOTIFY_CLIENT_SECRET = your_spotify_client_secret (optional)
+   - GENIUS_ACCESS_TOKEN = your_genius_access_token (optional)
+   - PING_URL = your deployed Render service URL (e.g., https://your-app.onrender.com)
+6. Click Deploy Web Service.
 
-##### 2. Hugging Face Spaces (Docker/Python - Free 24/7)
-Hugging Face Spaces are completely free and run 24/7.
-1. Create a free account on [Hugging Face](https://huggingface.co).
-2. Create a **New Space**. Select `Docker` as the SDK, and choose a free hardware tier.
+##### 2. Hugging Face Spaces (Docker - Free 24/7)
+Hugging Face Spaces are completely free and run continuously.
+1. Create a free account on huggingface.co.
+2. Create a New Space. Select Docker as the SDK, and choose a free hardware tier.
 3. Git clone the Space repository or upload files directly.
-4. Add your configuration values to the Space's **Repository Secrets** in the Settings tab (using the same environment variables listed above under Render).
-5. Commit and push the code (including your `cookies.json` or `cookies.txt`).
+4. Add your configuration values to the Space's Repository Secrets in the Settings tab using the same environment variables listed under Render.
+5. Commit and push the code, including your cookies.json or cookies.txt file.
 
 ##### 3. Koyeb (Free Tier)
 Koyeb provides free micro-containers.
-1. Create an account on [Koyeb](https://www.koyeb.com).
+1. Create an account on koyeb.com.
 2. Deploy a new service by linking your GitHub repository.
-3. Set the build/run options to use the root `Dockerfile`.
-4. Configure the environment variables (using the same variables listed above).
-5. Set `PING_URL` to your Koyeb application domain to enable the keep-alive.
+3. Set the build and run options to use the root Dockerfile.
+4. Configure the environment variables using the same variables listed under Render.
+5. Set PING_URL to your Koyeb application domain to enable the keep-alive.
 
-#### Step 3: Keep the Bot Awake (Prevent Sleeping) ⏰
+#### Step 3: Keep the Bot Awake (Prevent Sleeping)
 Free hosting plans (like Render's free web service) sleep after 15 minutes of inactivity. To prevent this:
-- **Built-in Keep Alive:** Provide the `PING_URL` (or `WEB_URL`) environment variable containing your public app URL. The bot will automatically ping itself every 10 minutes to stay awake.
-- **External Keep Alive:** Alternatively, create a free account on [UptimeRobot](https://uptimerobot.com) or [Cron-Job.org](https://cron-job.org) and set up a HTTP monitor to ping your web URL every 5–10 minutes.
+- Built-in Keep Alive: Provide the PING_URL environment variable containing your public app URL. The bot will automatically ping itself every 10 minutes to stay awake.
+- External Keep Alive: Alternatively, create a free account on UptimeRobot or Cron-Job.org and set up an HTTP monitor to ping your web URL every 5 to 10 minutes.
 
 ---
 
-## 🛠️ Dependencies
+## Dependencies
 
 - [Telethon](https://github.com/LonamiWebs/Telethon)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
@@ -249,7 +255,7 @@ Free hosting plans (like Render's free web service) sleep after 15 minutes of in
 
 ---
 
-## 🙏 Credits
+## Credits
 
 This project is a fork of [MusicDownloader-Telegram-Bot](https://github.com/AdibNikjou/MusicDownloader-Telegram-Bot) by [Adib Nikjou](https://github.com/AdibNikjou) — huge props for building the original.
 
@@ -257,10 +263,10 @@ I adapted it to focus on YouTube-only downloads and tweaked it to my needs. Orig
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">Made with ❤️ by <a href="https://github.com/NathanTura">NathanTura</a></p>
+<p align="center">Made by <a href="https://github.com/NathanTura">NathanTura</a></p>
