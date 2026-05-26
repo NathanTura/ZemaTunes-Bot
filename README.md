@@ -1,4 +1,4 @@
-# 🎵 ZemaTunes-Bot
+# ZemaTunes-Bot
 
 A personal Telegram bot for downloading music and videos from **YouTube** — designed to run locally on your machine.
 
@@ -6,7 +6,7 @@ A personal Telegram bot for downloading music and videos from **YouTube** — de
 
 ---
 
-## ⚡ What You Need to Know
+## What You Need to Know
 
 ### This is a **Local Bot**
 This bot runs on **your machine** (laptop, desktop, or home server). It's designed for personal/private use — not for hosting on a public server. You keep it running, you get your music.
@@ -21,19 +21,19 @@ See the **Deployment Notes** section below for more details.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🎵 **Download Audio** — Extract audio from YouTube links, save as MP3
-- 🔍 **Song Search** — Search by song name and download instantly
-- 🎬 **Video Downloads** — Get the full video if you need it
-- 🎙️ **Voice Recognition** — Hum or record audio to identify songs (Shazam integration)
-- 🎤 **Lyrics** — Fetch song lyrics on demand
-- ⚙️ **Format & Quality** — Choose audio quality and format to your liking
-- 📣 **Admin Broadcast** — Send messages to all users (admin only)
+- **Download Audio** — Extract audio from YouTube links, save as MP3
+- **Song Search** — Search by song name and download instantly
+- **Video Downloads** — Get the full video if you need it
+- **Voice Recognition** — Hum or record audio to identify songs (Shazam integration)
+- **Lyrics** — Fetch song lyrics on demand
+- **Format & Quality** — Choose audio quality and format to your liking
+- **Admin Broadcast** — Send messages to all users (admin only)
 
 ---
 
-## 🚀 Installation Guide
+## Installation Guide
 
 ### Step 1: Install System Dependencies
 
@@ -154,7 +154,7 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## 💬 Available Commands
+## Available Commands
 
 | Command | What It Does |
 |---|---|
@@ -174,12 +174,12 @@ Your bot is now running! Open Telegram, find your bot, and hit `/start`.
 
 ---
 
-## 🌐 Deployment Notes
+## Deployment Notes
 
-### Running Locally? ✅
+### Running Locally?
 You're all set! Just keep the terminal open and the bot keeps running.
 
-### Want to Deploy to a Server? ⚠️
+### Want to Deploy to a Server?
 YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that. If you deploy it to a remote server:
 
 1. **Get YouTube Cookies**
@@ -206,7 +206,7 @@ YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that
 
 ---
 
-## 🛠️ Dependencies
+## Dependencies
 
 - [Telethon](https://github.com/LonamiWebs/Telethon)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
@@ -218,7 +218,7 @@ YouTube frequently blocks bot requests. This bot uses **cookies** to bypass that
 
 ---
 
-## 🙏 Credits
+## Credits
 
 This project is a fork of [MusicDownloader-Telegram-Bot](https://github.com/AdibNikjou/MusicDownloader-Telegram-Bot) by [Adib Nikjou](https://github.com/AdibNikjou) — huge props for building the original.
 
@@ -226,10 +226,10 @@ I adapted it to focus on YouTube-only downloads and tweaked it to my needs. Orig
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">Made with ❤️ by <a href="https://github.com/NathanTura">NathanTura</a></p>
+<p align="center">Made with love by <a href="https://github.com/NathanTura">NathanTura</a></p>
